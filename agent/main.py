@@ -12,6 +12,9 @@ INDEX_NAME = "horus-index"
 
 
 def query_agent(query: str):
+    """
+    Handles agent querying
+    """
     embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
     docsearch = PineconeVectorStore(index_name=INDEX_NAME, embedding=embeddings)
     chat = ChatOpenAI(verbose=True, temperature=0)

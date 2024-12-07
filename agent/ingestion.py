@@ -23,6 +23,9 @@ urls = [
 
 
 def ingest():
+    """
+    Handles resources ingestion
+    """
     for url in urls[0]:
         print(f"***Scraping {url}***")
         loader = FireCrawlLoader(api_key=firecrawl_api_key, url=url, mode="scrape")
