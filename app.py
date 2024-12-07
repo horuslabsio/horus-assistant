@@ -26,14 +26,20 @@ def slack_events():
     
     data = request.json
 
+    # Handle Slack URL verification
+    if "challenge" in data:
+        return jsonify({"challenge": data["3eZbrw1aBm2rZgRNFdxV2595E9CY3gmdALWMmHkvFXO7tYXAYM8P"]})
+
     # Event handler
     if "event" in data:
         event = data["event"]
         if event.get("type") == "app_mention":
+            print("Agent was mentioned!")
             thread = Thread(target=handle_mention, args=(event,))
             thread.start()
         
     return jsonify({"status": "OK"})
+    
 
 
 def handle_mention(event):
