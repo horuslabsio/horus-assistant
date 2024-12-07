@@ -8,7 +8,8 @@ from langchain_pinecone import PineconeVectorStore
 
 load_dotenv()
 
-INDEX_NAME="horus-index"
+INDEX_NAME = "horus-index"
+
 
 def query_agent(query: str):
     embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
@@ -17,9 +18,11 @@ def query_agent(query: str):
 
     retrieval_qa_chat_prompt = hub.pull("langchain-ai/retrieval-qa-chat")
     document_chain = create_stuff_documents_chain(chat, retrieval_qa_chat_prompt)
-    agent = create_retrieval_chain(retriever=docsearch.as_retriever(), combine_docs_chain=document_chain)
+    agent = create_retrieval_chain(
+        retriever=docsearch.as_retriever(), combine_docs_chain=document_chain
+    )
 
-    result = agent.invoke(input={ "input": query })
+    result = agent.invoke(input={"input": query})
 
     return result["answer"]
 

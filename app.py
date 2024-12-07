@@ -16,6 +16,7 @@ verifier = SignatureVerifier(SLACK_SIGNING_SECRET)
 
 app = Flask(__name__)
 
+
 @app.route("/slack/events", methods=["POST"])
 def slack_events():
     """
@@ -23,12 +24,14 @@ def slack_events():
     """
     if not verifier.is_valid_request(request.get_data(), request.headers):
         return jsonify({"error": "Invalid request"}), 403
-    
+
     data = request.json
 
     # Handle Slack URL verification
     if "challenge" in data:
-        return jsonify({"challenge": data["3eZbrw1aBm2rZgRNFdxV2595E9CY3gmdALWMmHkvFXO7tYXAYM8P"]})
+        return jsonify(
+            {"challenge": data["3eZbrw1aBm2rZgRNFdxV2595E9CY3gmdALWMmHkvFXO7tYXAYM8P"]}
+        )
 
     # Event handler
     if "event" in data:
@@ -37,9 +40,8 @@ def slack_events():
             print("Agent was mentioned!")
             thread = Thread(target=handle_mention, args=(event,))
             thread.start()
-        
+
     return jsonify({"status": "OK"})
-    
 
 
 def handle_mention(event):
@@ -58,7 +60,11 @@ def handle_mention(event):
         send_message(channel, response, thread_ts=event.get("ts"))
     except Exception as e:
         print(f"Error processing query: {e}")
-        send_message(channel, "Sorry, I encountered an error processing your request.", thread_ts=event.get("ts"))
+        send_message(
+            channel,
+            "Sorry, I encountered an error processing your request.",
+            thread_ts=event.get("ts"),
+        )
 
 
 def send_message(channel, text, thread_ts=None):
