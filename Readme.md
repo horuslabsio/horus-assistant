@@ -2,9 +2,9 @@
 
 Hey there, I know you're lazy to check the company's wiki, so just ask me instead?
 
-🤨 How can I apply for a vacation leave?
-🏖️ Will the company sponsor my upcoming holiday to the Bahamas?
-👩‍💻 Who can I contact to help debug my JS issues?
+- 🤨 How can I apply for a vacation leave?
+- 🏖️ Will the company sponsor my upcoming holiday to the Bahamas?
+- 👩‍💻 Who can I contact to help debug my JS issues?
 
 I've got an answer to all your questions..just ping me on Slack!
 
