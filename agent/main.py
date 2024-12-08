@@ -27,8 +27,9 @@ def query_agent(query: str):
 
     result = agent.invoke(input={"input": query})
 
+    print(result["answer"])
     return result["answer"]
 
 
 if __name__ == "__main__":
-    query_agent("What is Horus labs?")
+    query_agent("What is Horus Labs?")

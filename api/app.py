@@ -1,5 +1,4 @@
 import os
-import logging
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 from slack_sdk.webhook import WebhookClient
@@ -27,13 +26,10 @@ def slack_events():
         return jsonify({"error": "Invalid request"}), 403
 
     data = request.json
-    logging.info("Slack payload: %s", data)
 
     # Handle Slack URL verification
     if "challenge" in data:
-        return jsonify(
-            {"challenge": data['challenge']}
-        )
+        return jsonify({"challenge": data["challenge"]})
 
     # Event handler
     if "event" in data:
@@ -76,7 +72,7 @@ def send_message(channel, text, thread_ts=None):
     try:
         client.chat_postMessage(channel=channel, text=text, thread_ts=thread_ts)
     except SlackApiError as e:
-        print(f"Error sendig message: {e.response['error']}")
+        print(f"Error sending message: {e.response['error']}")
 
 
 if __name__ == "__main__":
