@@ -1,4 +1,5 @@
 import os
+import logging
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 from slack_sdk.webhook import WebhookClient
@@ -26,11 +27,12 @@ def slack_events():
         return jsonify({"error": "Invalid request"}), 403
 
     data = request.json
+    logging.info("Slack payload: %s", data)
 
     # Handle Slack URL verification
     if "challenge" in data:
         return jsonify(
-            {"challenge": data["3eZbrw1aBm2rZgRNFdxV2595E9CY3gmdALWMmHkvFXO7tYXAYM8P"]}
+            {"challenge": data['challenge']}
         )
 
     # Event handler
