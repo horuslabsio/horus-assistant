@@ -30,6 +30,11 @@ def slack_events():
     # Handle Slack URL verification
     if "challenge" in data:
         return jsonify({"challenge": data["challenge"]})
+    
+    # Detect Slack retries and skip them
+    if request.headers.get("X-Slack-Retry-Num"):
+        print("Skipping retry")
+        return "", 200
 
     # Event handler
     if "event" in data:
@@ -39,7 +44,7 @@ def slack_events():
             thread = Thread(target=handle_mention, args=(event,))
             thread.start()
 
-    return jsonify({"status": "OK"})
+    return "", 200
 
 
 def handle_mention(event):
